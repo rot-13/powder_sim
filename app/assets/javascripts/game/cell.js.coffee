@@ -2,9 +2,9 @@
 
 class window.Cell extends Node
 
-  constructor: (@alive) ->
+  constructor: (id, @alive) ->
     @cycles = 0
-    super()
+    super(id)
 
   calculateStep: ->
     pressure = _.count(@connectedTo, (cells) -> cells.alive)

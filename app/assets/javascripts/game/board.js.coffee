@@ -5,7 +5,7 @@ class window.Board
 
   build: ->
     for i in [0...(@size * @size)]
-      newCell = new Cell(@nextCellState())
+      newCell = new Cell(i, @nextCellState())
       newCell.connect(@cells[i-1])
       newCell.connect(@cells[i-@size+1])
       newCell.connect(@cells[i-@size])

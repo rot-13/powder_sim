@@ -1,6 +1,6 @@
 class window.Node
 
-  constructor: ->
+  constructor: (@id) ->
     @connectedTo = []
 
   connect: (node) ->
