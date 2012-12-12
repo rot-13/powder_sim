@@ -7,7 +7,7 @@ class window.Cell extends Node
     super(id)
 
   calculateStep: ->
-    pressure = _.count(@connectedTo, (cells) -> cells.alive)
+    pressure = _.select(@connectedTo, (cells) -> cells.alive).length
 
     if pressure == 3
       @willBeAlive = true
