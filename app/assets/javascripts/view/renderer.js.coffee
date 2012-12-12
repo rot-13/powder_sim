@@ -10,7 +10,9 @@ class window.Renderer
 
   render: ->
     _.each(@board.cells, (cell) ->
-      $("#cell_#{cell.id}").css('background', if cell.alive then 'yellow' else 'black')
+      $("#cell_#{cell.id}").css(
+        'background': if cell.alive then window.Utils.brightness('#ffff00', Math.min(99, cell.cycles)) else 'black'
+      )
     )
 
   ## TEMPLATES

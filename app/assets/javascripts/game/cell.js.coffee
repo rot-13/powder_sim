@@ -15,7 +15,7 @@ class window.Cell extends Node
 
   performStep: ->
     @alive = @willBeAlive
-    @cycles++
+    if @alive then @cycles++ else @cycles = 0
 
 
 
