@@ -4,6 +4,6 @@ class window.Node
     @connectedTo = []
 
   connect: (node) ->
-    return unless node?
+    return false unless node?
     node.connectedTo.push(@)
     @connectedTo.push(node)
