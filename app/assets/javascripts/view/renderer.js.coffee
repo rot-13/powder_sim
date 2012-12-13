@@ -17,9 +17,7 @@ class window.Renderer
 
   render: ->
     _.each(@board.cells, (cell) =>
-      @cells[cell.id].css(
-        'background': if cell.alive then window.Utils.brightness('#ffff00', Math.min(99, cell.cycles)) else 'black'
-      )
+      @cells[cell.id].toggleClass('alive', cell.alive)
     )
 
   ## TEMPLATES
