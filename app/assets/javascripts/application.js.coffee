@@ -3,14 +3,12 @@
 #= require_tree .
 
 $(document).ready ->
-  window.board = new Board(100)
+  window.board = new Board(75)
   window.board.build()
 
-  window.renderer = new Renderer(board, 3)
-  window.renderer.render()
+  window.renderer = new Renderer(board, 5)
 
-  setInterval(window.step, 20)
+  window.start()
 
-window.step = ->
-  window.board.step()
+window.start = ->
   window.renderer.render()
