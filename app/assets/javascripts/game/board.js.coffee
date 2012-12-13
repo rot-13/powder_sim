@@ -19,8 +19,8 @@ class window.Board
       @cells.push(newCell)
 
   step: ->
-    _.each(@cells, (cell) -> cell.calculateStep())
-    _.each(@cells, (cell) -> cell.performStep())
+    @cells.forEach((cell) -> cell.calculateStep())
+    @cells.forEach((cell) -> cell.performStep())
 
   nextCellState: -> Math.random() > 0.5
 
