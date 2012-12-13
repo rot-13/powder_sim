@@ -3,7 +3,6 @@
 class window.Cell extends Node
 
   constructor: (id, @alive) ->
-    @cycles = 0
     super(id)
 
   calculateStep: ->
@@ -15,7 +14,6 @@ class window.Cell extends Node
 
   performStep: ->
     @alive = @willBeAlive
-    if @alive then @cycles++ else @cycles = 0
 
 
 

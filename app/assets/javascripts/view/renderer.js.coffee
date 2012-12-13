@@ -1,7 +1,8 @@
 class window.Renderer
 
   constructor: (@board, @cellSize) ->
-    @cells = new Array(@board.size * @board.size)
+    @totalSize = @board.size * @board.size
+    @cells = new Array(@totalSize)
     @build()
 
   build: ->
@@ -16,9 +17,8 @@ class window.Renderer
         $('.row').last().append(cell)
 
   render: ->
-    _.each(@board.cells, (cell) =>
-      @cells[cell.id].toggleClass('alive', cell.alive)
-    )
+    for i in [0...@totalSize]
+      @cells[i].toggleClass('alive', @board.cells[i].alive)
     @board.step()
     window.requestAnimFrame(=> @render())
 
