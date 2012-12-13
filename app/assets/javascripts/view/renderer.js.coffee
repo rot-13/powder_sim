@@ -1,26 +1,33 @@
 class window.Renderer
 
   constructor: (@board, @cellSize) ->
-    $('body').append(@_boardTemplate())
+    @cells = new Array(@board.size * @board.size)
+    @build()
+
+  build: ->
+    $('body').append(@boardTemplate())
 
     for i in [0...@board.size]
-      $('.board').append(@_rowTemplate())
+      $('.board').append(@rowTemplate())
       for j in [0...@board.size]
-        $('.row').last().append(@_cellTemplate(@board.cells[i * @board.size + j].id))
+        id = i * @board.size + j
+        cell = $(@cellTemplate())
+        @cells[id] = cell
+        $('.row').last().append(cell)
 
   render: ->
-    _.each(@board.cells, (cell) ->
-      $("#cell_#{cell.id}").css(
+    _.each(@board.cells, (cell) =>
+      @cells[cell.id].css(
         'background': if cell.alive then window.Utils.brightness('#ffff00', Math.min(99, cell.cycles)) else 'black'
       )
     )
 
   ## TEMPLATES
-  _boardTemplate: ->
-    "<div class='board'></div>"
+  boardTemplate: ->
+    @_boardTemplate ||= "<div class='board'></div>"
 
-  _rowTemplate: ->
-    "<div class='row' style='height: #{@cellSize}px'></div>"
+  rowTemplate: ->
+    @_rowTemplate ||= "<div class='row' style='height: #{@cellSize}px'></div>"
 
-  _cellTemplate: (id) ->
-    "<div class='cell' id='cell_#{id}' style='display: inline-block; width: #{@cellSize}px; height: #{@cellSize}px'></div>"
+  cellTemplate: ->
+    @_cellTemplate ||= "<div class='cell' style='display: inline-block; width: #{@cellSize}px; height: #{@cellSize}px'></div>"
