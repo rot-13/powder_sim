@@ -19,8 +19,6 @@ class window.Renderer
   render: ->
     for i in [0...@totalSize]
       @cells[i].toggleClass('alive', @board.cells[i].alive)
-    @board.step()
-    window.requestAnimFrame(=> @render())
 
   ## TEMPLATES
   boardTemplate: ->
