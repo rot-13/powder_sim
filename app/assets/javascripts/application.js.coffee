@@ -6,7 +6,8 @@ $(document).ready ->
   window.board = new Board(70)
   window.board.build()
 
-  window.renderer = new DOMRenderer(board, 5)
+#  window.renderer = new DOMRenderer(board, 5)
+  window.renderer = new CanvasRenderer(board, 5)
 
   window.start()
 

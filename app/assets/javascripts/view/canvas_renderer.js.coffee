@@ -2,27 +2,24 @@
 
 class window.CanvasRenderer extends window.Renderer
 
-  build: ->
-    $('body').append(@boardTemplate())
+  CANVAS: 'canvas'
+  BUFFER: 'buffer'
+  CACHE:  'cache'
 
-    for i in [0...@board.size]
-      $('.board').append(@rowTemplate())
-      for j in [0...@board.size]
-        id = i * @board.size + j
-        cell = $(@cellTemplate())
-        @cells[id] = cell
-        $('.row').last().append(cell)
+  build: ->
+    @ctx = {}
+
+    $('body').append(@boardTemplate(@CANVAS))
+    @ctx[@CANVAS] = $(CANVAS).getContext("2d");
+
+    ## see if works with dom fragment.
 
   render: ->
-    for i in [0...@totalSize]
-      @cells[i].toggleClass('alive', @board.cells[i].alive)
 
   ## TEMPLATES
-  boardTemplate: ->
-    @_boardTemplate ||= "<div class='board'></div>"
+  boardTemplate: (id) ->
+    @_boardTemplate ||= "<canvas id='#{id}' width='#{@canvasSize()}' height='#{@canvasSize()}'</div>"
 
-  rowTemplate: ->
-    @_rowTemplate ||= "<div class='row' style='height: #{@cellSize}px'></div>"
-
-  cellTemplate: ->
-    @_cellTemplate ||= "<div class='cell' style='display: inline-block; width: #{@cellSize}px; height: #{@cellSize}px'></div>"
+  ## HELPERS
+  canvasSize: ->
+    @_canvasSize ||= @cellSize * @board.size
