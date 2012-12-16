@@ -1,4 +1,4 @@
-class window.Renderer
+class window.DOMRenderer
 
   constructor: (@board, @cellSize) ->
     @totalSize = @board.size * @board.size
