@@ -18,11 +18,16 @@ window.loop = ->
   window.renderer.render()
   window.board.step()
 
-  thisTime = new Date()
-  console.log(thisTime - window.lastTime)
-  window.lastTime = thisTime
+  window.trackFPS()
 
   window.requestAnimFrame(window.loop)
 
+window.trackFPS = ->
+  thisTime = new Date()
+#  console.log(thisTime - window.lastTime)
+  window.lastTime = thisTime
+
+# name space.
+# game control.
 # board should step by dt?
 # update only live cells and their neighbours.

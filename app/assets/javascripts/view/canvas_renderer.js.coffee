@@ -1,9 +1,6 @@
-class window.DOMRenderer
+#= require ./renderer
 
-  constructor: (@board, @cellSize) ->
-    @totalSize = @board.size * @board.size
-    @cells = new Array(@totalSize)
-    @build()
+class window.CanvasRenderer extends window.Renderer
 
   build: ->
     $('body').append(@boardTemplate())
