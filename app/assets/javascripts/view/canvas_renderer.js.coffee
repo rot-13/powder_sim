@@ -15,6 +15,20 @@ class window.CanvasRenderer extends window.Renderer
     @buildCache()
 
   render: ->
+    ctx = @ctx[@BOARD]
+    ctx.clearRect(0, 0, @boardSize, @boardSize);
+    ctx.save()
+    ctx.fillStyle = 'yellow'
+    for index in [0...@board.cells.length]
+      debugger
+      @renderCellAt(ctx, index) if @board.cells[index].alive
+    ctx.restore()
+
+  renderCellAt: (ctx, index) ->
+    x = Math.floor(index / @board.size) * @cellSize
+    y = (index % @board.size) * @cellSize
+    ctx.fillRect(x, y, x + @cellSize, y + @cellSize)
+
 
   ## BUILD
   setContext: (id, size, displayed = false) ->

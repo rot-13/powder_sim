@@ -28,7 +28,15 @@ window.trackFPS = ->
 #  console.log(thisTime - window.lastTime)
   window.lastTime = thisTime
 
+
+# fps counter.
+# copy pixels (cache) vs draw rect.
+# try double buffering?
+# blurry render.
+# canvas renderer - traverse only living cells.
+
 # name space.
 # game control.
+
 # board should step by dt?
 # update only live cells and their neighbours.
