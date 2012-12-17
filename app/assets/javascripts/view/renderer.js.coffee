@@ -1,8 +1,7 @@
 class window.Renderer
 
   constructor: (@board, @cellSize) ->
-    @totalSize = @board.size * @board.size
-    @cells = new Array(@totalSize)
+    @boardSize = @cellSize * @board.size
     @build()
 
   build: ->

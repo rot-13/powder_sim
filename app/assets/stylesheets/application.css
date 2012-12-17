@@ -5,8 +5,14 @@
 
 .cell {
     background-color: black;
+    float: left;
 }
 
 .alive {
     background-color: yellow;
+}
+
+#board {
+    margin: 20px;
+    border: 1px solid #7f7f7f;
 }

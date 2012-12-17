@@ -2,24 +2,22 @@
 
 class window.CanvasRenderer extends window.Renderer
 
-  CANVAS: 'canvas'
+  BOARD:  'board'
   BUFFER: 'buffer'
   CACHE:  'cache'
 
+  ctx: {}
+
   build: ->
-    @ctx = {}
-
-    $('body').append(@boardTemplate(@CANVAS))
-    @ctx[@CANVAS] = $(CANVAS).getContext("2d");
-
-    ## see if works with dom fragment.
+    @setContext(@BOARD,  @boardSize, true)
+    @setContext(@BUFFER, @boardSize)
+    @setContext(@CACHE,  @cellSize)
 
   render: ->
 
-  ## TEMPLATES
-  boardTemplate: (id) ->
-    @_boardTemplate ||= "<canvas id='#{id}' width='#{@canvasSize()}' height='#{@canvasSize()}'</div>"
 
-  ## HELPERS
-  canvasSize: ->
-    @_canvasSize ||= @cellSize * @board.size
+  setContext: (id, size, displayed = false) ->
+    displayedString = if displayed then 'block' else 'none'
+    template = "<canvas id='#{id}' width='#{size}' height='#{size}' style='display:#{displayedString}'></canvas>"
+    $('body').append(template)
+    @ctx[id] = document.getElementById(id).getContext("2d");
