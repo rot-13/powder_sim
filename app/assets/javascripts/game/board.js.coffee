@@ -24,8 +24,10 @@ class window.Board
     @accumulator += dt
     while @accumulator > @stepEvery
       @alive = []
-      @cells.forEach((cell) -> cell.calculateStep())
-      @cells.forEach((cell) => @alive.push(cell) if cell.performStep())
+      for cell in @cells
+        cell.calculateStep()
+      for cell in @cells
+        @alive.push(cell) if cell.performStep()
       @accumulator -= @stepEvery
 
   nextCellState: -> Math.random() > 0.5

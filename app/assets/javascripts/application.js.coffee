@@ -3,7 +3,7 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(boardSize: 100, cellSize: 5, maxFPS: 60)
+  app = new Application(boardSize: 60, cellSize: 5, maxFPS: 100)
   app.start()
 
 
