@@ -3,11 +3,10 @@
 #= require_tree .
 
 $(document).ready ->
-  window.board = new Board(70)
+  window.board = new Board(100)
   window.board.build()
 
-#  window.renderer = new DOMRenderer(board, 5)
-  window.renderer = new CanvasRenderer(board, 5)
+  window.renderer = new CanvasRenderer(board, 4)
 
   window.start()
 
@@ -16,17 +15,17 @@ window.start = ->
   window.requestAnimFrame(window.loop)
 
 window.loop = ->
-  window.renderer.render()
-  window.board.step()
+  thisTime = new Date()
+  dt = thisTime - window.lastTime
+  window.lastTime = thisTime
 
-  window.trackFPS()
+  window.board.step(dt)
+  window.renderer.render()
+
+#  console.log(1000/dt)
 
   window.requestAnimFrame(window.loop)
 
-window.trackFPS = ->
-  thisTime = new Date()
-#  console.log(thisTime - window.lastTime)
-  window.lastTime = thisTime
 
 
 # fps counter.
