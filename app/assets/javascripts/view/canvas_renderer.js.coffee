@@ -3,19 +3,12 @@
 class window.CanvasRenderer extends window.Renderer
 
   BOARD:  'board'
-  BUFFER: 'buffer'
-  CACHE:  'cache'
-
-  ctx: {}
 
   build: ->
     @setContext(@BOARD,  @boardSize, true)
-    @setContext(@BUFFER, @boardSize)
-    @setContext(@CACHE,  @cellSize)
-    @buildCache()
 
   render: ->
-    ctx = @ctx[@BOARD]
+    ctx = @ctx
     ctx.clearRect(0, 0, @boardSize, @boardSize);
     ctx.fillStyle = 'yellow'
     for index in [0...@board.cells.length]
@@ -28,13 +21,7 @@ class window.CanvasRenderer extends window.Renderer
 
 
   ## BUILD
-  setContext: (id, size, displayed = false) ->
-    hiddenClass = if displayed then '' else 'hidden'
-    template = "<canvas id='#{id}' class='#{hiddenClass}' width='#{size}' height='#{size}'></canvas>"
+  setContext: (id, size) ->
+    template = "<canvas id='#{id}' width='#{size}' height='#{size}'></canvas>"
     $('body').append(template)
-    @ctx[id] = document.getElementById(id).getContext("2d");
-
-  buildCache: ->
-    ctx = @ctx[@CACHE]
-    ctx.fillStyle = 'yellow'
-    ctx.fillRect(0, 0, @cellSize, @cellSize)
+    @ctx = document.getElementById(id).getContext("2d");

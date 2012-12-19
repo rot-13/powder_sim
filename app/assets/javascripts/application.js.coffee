@@ -33,7 +33,7 @@ class window.Application
     window.requestAnimFrame(@loop)
 
 
-# fix max fps.
+# fix max fps and tracker.
 # copy pixels (cache) vs draw rect.
 # try double buffering?
 # blurry render.
