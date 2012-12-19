@@ -1,8 +1,6 @@
 class window.Board
 
-  stepEvery: 50
-
-  constructor: (@size) ->
+  constructor: (@size, @stepEvery) ->
     @accumulator = 0
     @cells = []
 

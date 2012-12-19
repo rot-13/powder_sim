@@ -3,39 +3,39 @@
 #= require_tree .
 
 $(document).ready ->
-  window.board = new Board(100)
-  window.board.build()
-
-  window.renderer = new CanvasRenderer(board, 4)
-
-  window.start()
-
-window.start = ->
-  window.lastTime = new Date()
-  window.requestAnimFrame(window.loop)
-
-window.loop = ->
-  thisTime = new Date()
-  dt = thisTime - window.lastTime
-  window.lastTime = thisTime
-
-  window.board.step(dt)
-  window.renderer.render()
-
-#  console.log(1000/dt)
-
-  window.requestAnimFrame(window.loop)
+  app = new Application(boardSize: 100, cellSize: 5, maxFPS: 60)
+  app.start()
 
 
+class window.Application
 
-# fps counter.
+  constructor: (options) ->
+    @board = new Board(options.boardSize, 1000/options.maxFPS)
+    @board.build()
+
+    @renderer   = new CanvasRenderer(@board, options.cellSize)
+    @fpsTracker = new FPSTracker(100)
+
+  start: ->
+    @lastTime = new Date()
+    window.requestAnimFrame(@loop)
+
+  loop: =>
+    thisTime = new Date()
+    dt = thisTime - @lastTime
+    @lastTime = thisTime
+
+    @board.step(dt)
+    @renderer.render()
+
+    @fpsTracker.step(dt)
+
+    window.requestAnimFrame(@loop)
+
+
+# fix max fps.
 # copy pixels (cache) vs draw rect.
 # try double buffering?
 # blurry render.
 # canvas renderer - traverse only living cells.
-
-# name space.
-# game control.
-
-# board should step by dt?
 # update only live cells and their neighbours.
