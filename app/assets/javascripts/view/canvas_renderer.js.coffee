@@ -6,13 +6,13 @@ class window.CanvasRenderer extends window.Renderer
 
   build: ->
     @setContext(@BOARD,  @boardSize, true)
-    @ctx.fillStyle = 'yellow'
+    @ctx.fillStyle = 'gray'
     @counter = 0
 
   render: ->
     ctx = @ctx
     ctx.save()
-    window.stackBlur(ctx, @boardSize, @boardSize, 2)
+    window.stackBlur(ctx, @boardSize, @boardSize, 1)
     for cell in @board.alive
       @renderCell(ctx, cell)
     ctx.restore()
