@@ -3,7 +3,7 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(boardSize: 60, cellSize: 5, maxFPS: 100)
+  app = new Application(boardSize: 100, cellSize: 2, maxFPS: 60)
   app.start()
 
 
@@ -34,7 +34,5 @@ class window.Application
 
 
 # fix max fps and tracker.
-# copy pixels (cache) vs draw rect.
-# try double buffering?
 # blurry render.
 # update only live cells and their neighbours.
