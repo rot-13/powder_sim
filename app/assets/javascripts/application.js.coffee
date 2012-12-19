@@ -37,5 +37,4 @@ class window.Application
 # copy pixels (cache) vs draw rect.
 # try double buffering?
 # blurry render.
-# canvas renderer - traverse only living cells.
 # update only live cells and their neighbours.

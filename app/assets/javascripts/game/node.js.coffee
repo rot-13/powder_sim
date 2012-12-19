@@ -1,6 +1,8 @@
 class window.Node
 
-  constructor: (@id) ->
+  constructor: (@id, size) ->
+    @i = Math.floor(@id / size)
+    @j = id % size
     @connectedTo = []
 
   connect: (node) ->

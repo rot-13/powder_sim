@@ -3,10 +3,11 @@ class window.Board
   constructor: (@size, @stepEvery) ->
     @accumulator = 0
     @cells = []
+    @alive = []
 
   build: ->
     for i in [0...(@size * @size)]
-      newCell = new Cell(i, @nextCellState())
+      newCell = new Cell(i, @size, @nextCellState())
 
       top   = i < @size
       left  = i % @size == 0
@@ -22,8 +23,9 @@ class window.Board
   step: (dt) ->
     @accumulator += dt
     while @accumulator > @stepEvery
+      @alive = []
       @cells.forEach((cell) -> cell.calculateStep())
-      @cells.forEach((cell) -> cell.performStep())
+      @cells.forEach((cell) => @alive.push(cell) if cell.performStep())
       @accumulator -= @stepEvery
 
   nextCellState: -> Math.random() > 0.5

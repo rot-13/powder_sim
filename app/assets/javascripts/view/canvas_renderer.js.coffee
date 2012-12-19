@@ -11,12 +11,12 @@ class window.CanvasRenderer extends window.Renderer
     ctx = @ctx
     ctx.clearRect(0, 0, @boardSize, @boardSize);
     ctx.fillStyle = 'yellow'
-    for index in [0...@board.cells.length]
-      @renderCellAt(ctx, index) if @board.cells[index].alive
+    for cell in @board.alive
+      @renderCell(ctx, cell)
 
-  renderCellAt: (ctx, index) ->
-    x = Math.floor(index / @board.size) * @cellSize
-    y = (index % @board.size) * @cellSize
+  renderCell: (ctx, cell) ->
+    x = cell.i * @cellSize
+    y = cell.j * @cellSize
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
 
