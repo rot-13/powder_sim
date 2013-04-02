@@ -1,7 +1,6 @@
 class window.Board
 
-  constructor: (@size, @stepEvery) ->
-    @accumulator = 0
+  constructor: (@size) ->
     @cells = []
     @alive = []
 
@@ -20,15 +19,12 @@ class window.Board
         newCell.connect(@cells[i-@size-1]) unless left
       @cells.push(newCell)
 
-  step: (dt) ->
-    @accumulator += dt
-    while @accumulator > @stepEvery
-      @alive = []
-      for cell in @cells
-        cell.calculateStep()
-      for cell in @cells
-        @alive.push(cell) if cell.performStep()
-      @accumulator -= @stepEvery
+  step: ->
+    @alive = []
+    for cell in @cells
+      cell.calculateStep()
+    for cell in @cells
+      @alive.push(cell) if cell.performStep()
 
   nextCellState: -> Math.random() > 0.5
 

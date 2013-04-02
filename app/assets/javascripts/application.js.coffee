@@ -3,36 +3,23 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(boardSize: 100, cellSize: 3, maxFPS: 30)
-  app.start()
-
+  app = new Application(boardSize: 100, cellSize: 4)
+  app.run()
 
 class window.Application
 
   constructor: (options) ->
-    @board = new Board(options.boardSize, 1000/options.maxFPS)
+    @board = new Board(options.boardSize)
     @board.build()
+    @renderer = new CanvasRenderer(@board, options.cellSize)
 
-    @renderer   = new CanvasRenderer(@board, options.cellSize)
-    @fpsTracker = new FPSTracker(100)
+  loop: ->
+    @board.step()
+    @renderer.draw()
 
-  start: ->
-    @lastTime = new Date()
-    window.requestAnimFrame(@loop)
+  run: ->
+    loopFunction = =>
+      @loop()
+      window.requestAnimFrame(loopFunction, @renderer.canvas)
 
-  loop: =>
-    thisTime = new Date()
-    dt = thisTime - @lastTime
-    @lastTime = thisTime
-
-    @board.step(dt)
-    @renderer.render()
-
-    @fpsTracker.step(dt)
-
-    window.requestAnimFrame(@loop)
-
-
-# fix max fps and tracker.
-# blurry render.
-# update only live cells and their neighbours.
+    window.requestAnimFrame(loopFunction, @renderer.canvas)
