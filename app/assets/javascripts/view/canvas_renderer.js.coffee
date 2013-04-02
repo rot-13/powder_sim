@@ -22,7 +22,7 @@ class window.CanvasRenderer
     if cell.type
       @ctx.fillStyle = CellTypes[cell.type]
     else
-      @ctx.fillStyle = 0x000
+      @ctx.fillStyle = 'black'
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
 
