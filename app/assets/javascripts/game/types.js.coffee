@@ -1,0 +1,5 @@
+CellTypes = {
+
+  stone: 'gray'
+
+}

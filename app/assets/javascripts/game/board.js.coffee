@@ -1,12 +1,14 @@
 class window.Board
 
-  constructor: (@size) ->
+  constructor: (options) ->
+    @size = options.size
+    @cellType = options.cellType
     @cells = []
     @alive = []
 
   build: ->
     for i in [0...(@size * @size)]
-      newCell = new Cell(i, @size, @nextCellState())
+      newCell = new @cellType(i, @size, @nextCellState())
 
       top   = i < @size
       left  = i % @size == 0

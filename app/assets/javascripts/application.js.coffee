@@ -9,7 +9,7 @@ $(document).ready ->
 class window.Application
 
   constructor: (@options) ->
-    @board = new Board(@options.boardSize)
+    @board = new Board(size: @options.boardSize, cellType: GOLCell)
     @board.build()
     @renderer = new CanvasRenderer(@board, @options.cellSize)
 
