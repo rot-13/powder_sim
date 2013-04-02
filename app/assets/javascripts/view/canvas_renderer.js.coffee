@@ -12,7 +12,7 @@ class window.CanvasRenderer
   draw: ->
     ctx = @ctx
     ctx.save()
-    for cell in @board.alive
+    for cell in @board.cells
       @renderCell(ctx, cell)
     ctx.restore()
 
