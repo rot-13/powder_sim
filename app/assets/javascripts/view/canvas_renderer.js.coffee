@@ -13,19 +13,20 @@ class window.CanvasRenderer
   draw: ->
     ctx = @ctx
     ctx.save()
-    for cell in @board.cells
+
+    @ctx.fillStyle = @emptyColor
+    ctx.fillRect(0, 0, @boardSize, @boardSize)
+
+    for cell in @board.alive
       @renderCell(ctx, cell)
+
     ctx.restore()
 
   renderCell: (ctx, cell) ->
     x = cell.i * @cellSize
     y = cell.j * @cellSize
-    if cell.type
-      @ctx.fillStyle = CellTypes[cell.type]
-    else
-      @ctx.fillStyle = @emptyColor
+    @ctx.fillStyle = CellTypes[cell.type] if cell.type
     ctx.fillRect(x, y, @cellSize, @cellSize)
-
 
   ## BUILD
   setContext: (id, size) ->
