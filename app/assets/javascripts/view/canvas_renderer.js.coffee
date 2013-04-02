@@ -8,7 +8,6 @@ class window.CanvasRenderer
 
   build: ->
     @setContext(@BOARD,  @boardSize, true)
-    @ctx.fillStyle = 'gray'
 
   draw: ->
     ctx = @ctx
@@ -20,6 +19,11 @@ class window.CanvasRenderer
   renderCell: (ctx, cell) ->
     x = cell.i * @cellSize
     y = cell.j * @cellSize
+
+    if cell.alive
+      @ctx.fillStyle = 'gray'
+    else
+      @ctx.fillStyle = 'black'
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
 
