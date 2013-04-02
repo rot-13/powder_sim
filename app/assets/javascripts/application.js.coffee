@@ -3,15 +3,15 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(boardSize: 120, cellSize: 3, desiredFPS: 8)
+  app = new Application(cellType: FungusCell, boardSize: 90, cellSize: 4, desiredFPS: 10)
   app.run()
 
 class window.Application
 
   constructor: (@options) ->
-    @board = new Board(size: @options.boardSize, cellType: GoLCell)
+    @board = new Board(size: options.boardSize, cellType: options.cellType)
     @board.build()
-    @renderer = new CanvasRenderer(@board, @options.cellSize)
+    @renderer = new CanvasRenderer(@board, options.cellSize)
 
   run: ->
     loops = 0
@@ -32,3 +32,6 @@ class window.Application
     )
 
     window.requestAnimFrame(loopFunction, @renderer.canvas)
+
+
+  # intensity.
