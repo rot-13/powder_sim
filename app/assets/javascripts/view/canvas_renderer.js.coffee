@@ -1,6 +1,7 @@
 class window.CanvasRenderer
 
   BOARD: 'board'
+  emptyColor: 'black'
 
   constructor: (@board, @cellSize) ->
     @boardSize = @cellSize * @board.size
@@ -22,7 +23,7 @@ class window.CanvasRenderer
     if cell.type
       @ctx.fillStyle = CellTypes[cell.type]
     else
-      @ctx.fillStyle = 'black'
+      @ctx.fillStyle = @emptyColor
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
 
