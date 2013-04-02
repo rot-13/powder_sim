@@ -1,14 +1,13 @@
-class window.GOLCell extends window.Cell
+class window.GoLCell extends window.Cell
+
+  @defaultType: 'stone'
 
   calculateStep: ->
-    pressure = _.select(@connectedTo, (cells) -> cells.alive).length
+    pressure = _.select(@connectedTo, (cells) -> cells.type).length
     if pressure == 3
-      @willBeAlive = true
+      @futureType = @constructor.defaultType
     else if pressure <= 1 or pressure > 3
-      @willBeAlive = false
+      @futureType = null
 
-  performStep: ->
-    @alive = @willBeAlive
-
-
-
+  @initialType: ->
+    if Math.random() > 0.5 then @type = @defaultType else null

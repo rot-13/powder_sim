@@ -8,7 +8,7 @@ class window.Board
 
   build: ->
     for i in [0...(@size * @size)]
-      newCell = new @cellType(i, @size, @nextCellState())
+      newCell = new @cellType(i, @size, @cellType.initialType())
 
       top   = i < @size
       left  = i % @size == 0
@@ -27,8 +27,3 @@ class window.Board
       cell.calculateStep()
     for cell in @cells
       @alive.push(cell) if cell.performStep()
-
-  nextCellState: -> Math.random() > 0.5
-
-
-

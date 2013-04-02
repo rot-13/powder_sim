@@ -1,4 +1,4 @@
-CellTypes = {
+window.CellTypes = {
 
   stone: 'gray'
 

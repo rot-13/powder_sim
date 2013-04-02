@@ -19,11 +19,10 @@ class window.CanvasRenderer
   renderCell: (ctx, cell) ->
     x = cell.i * @cellSize
     y = cell.j * @cellSize
-
-    if cell.alive
-      @ctx.fillStyle = 'gray'
+    if cell.type
+      @ctx.fillStyle = CellTypes[cell.type]
     else
-      @ctx.fillStyle = 'black'
+      @ctx.fillStyle = 0x000
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
 
