@@ -1,6 +1,8 @@
 window.CellTypes = {
 
   stone: 'gray'
-  plant: 'orange'
+  fire:  'orange'
+  water: 'teal'
+  plant: 'green'
 
 }
