@@ -1,4 +1,4 @@
-class window.CanvasRenderer
+class window.Renderer
 
   BOARD: 'board'
   emptyColor: 'black'

@@ -11,7 +11,7 @@ class window.Application
   constructor: (@options) ->
     @board = new Board(size: options.boardSize, cellType: options.cellType)
     @board.build()
-    @renderer = new CanvasRenderer(@board, options.cellSize)
+    @renderer = new Renderer(@board, options.cellSize)
 
   run: ->
     loops = 0
