@@ -25,6 +25,7 @@ class window.CanvasRenderer
   renderCell: (ctx, cell) ->
     x = cell.i * @cellSize
     y = cell.j * @cellSize
+
     @ctx.fillStyle = CellTypes[cell.type] if cell.type
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
