@@ -13,11 +13,11 @@ class window.Board
       left  = i % @size == 0
       right = i % @size == @size - 1
 
-      newCell.connect(@cells[i-1]) unless left
+      newCell.connect(@cells[i-1], 'left') unless left
       unless top
-        newCell.connect(@cells[i-@size+1]) unless right
-        newCell.connect(@cells[i-@size])
-        newCell.connect(@cells[i-@size-1]) unless left
+        newCell.connect(@cells[i-@size+1], 'topRight') unless right
+        newCell.connect(@cells[i-@size], 'top')
+        newCell.connect(@cells[i-@size-1], 'topLeft') unless left
       @cells.push(newCell)
 
   step: ->

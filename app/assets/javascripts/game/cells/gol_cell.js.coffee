@@ -3,7 +3,8 @@ class window.GoLCell extends window.Cell
   @defaultType: 'stone'
 
   calculateStep: ->
-    pressure = _.select(@connectedTo, (cells) -> cells.type).length
+    pressure = 0
+    _.each(_.values(@connectedTo), (value) -> if value?.type then pressure++)
     if pressure == 3
       @futureType = @constructor.defaultType
     else if pressure <= 1 or pressure > 3

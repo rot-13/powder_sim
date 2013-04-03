@@ -17,8 +17,11 @@ class window.ElementCell extends window.Cell
 
   @initialType: ->
     random = Math.floor(Math.random() * 100)
-    @type = switch
-      when random < 25 then 'stone'
-      when random < 45 then 'water'
-      else null
+
+    if random < 25
+      @type = 'stone'
+    else if random < 45
+      @type = 'water'
+    else
+      @type = null
 
