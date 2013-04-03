@@ -10,4 +10,4 @@ class window.FungusCell extends window.Cell
       @futureType = null
 
   @initialType: ->
-    if Math.random() > 0.90 then @type = @defaultType else null
+    if Math.random() > 0.5 then @type = @defaultType else null

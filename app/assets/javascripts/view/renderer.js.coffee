@@ -17,8 +17,8 @@ class window.Renderer
     @ctx.fillStyle = @emptyColor
     ctx.fillRect(0, 0, @boardSize, @boardSize)
 
-    for cell in @board.alive
-      @renderCell(ctx, cell)
+    for cell in @board.cells
+      @renderCell(ctx, cell) if cell.type
 
     ctx.restore()
 
@@ -26,7 +26,7 @@ class window.Renderer
     x = cell.i * @cellSize
     y = cell.j * @cellSize
 
-    @ctx.fillStyle = CellTypes[cell.type] if cell.type
+    @ctx.fillStyle = CellTypes[cell.type]
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
   ## BUILD

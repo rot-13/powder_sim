@@ -4,7 +4,6 @@ class window.Board
     @size = options.size
     @cellType = options.cellType
     @cells = []
-    @alive = []
 
   build: ->
     for i in [0...(@size * @size)]
@@ -22,8 +21,7 @@ class window.Board
       @cells.push(newCell)
 
   step: ->
-    @alive = []
     for cell in @cells
       cell.calculateStep()
     for cell in @cells
-      @alive.push(cell) if cell.performStep()
+      cell.performStep()
