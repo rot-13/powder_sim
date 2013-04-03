@@ -10,9 +10,18 @@ class window.ElementCell extends window.Cell
     @futureType = @type
 
   _calculateWater: ->
-    @futureType = @type
+    bottomType = @connectedTo['bottom']?.type
+
+    if bottomType == null or bottomType == 'water'
+      @futureType = null
+    else if bottomType == 'stone'
+      @futureType = 'water'
 
   _calculateEmpty: ->
+    topType = @connectedTo['top']?.type
+
+    if topType == 'water'
+      @futureType = 'water'
 
 
   @initialType: ->
