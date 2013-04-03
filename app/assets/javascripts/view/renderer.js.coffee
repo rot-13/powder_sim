@@ -23,8 +23,8 @@ class window.Renderer
     ctx.restore()
 
   renderCell: (ctx, cell) ->
-    x = cell.i * @cellSize
-    y = cell.j * @cellSize
+    x = cell.j * @cellSize
+    y = cell.i * @cellSize
 
     @ctx.fillStyle = CellTypes[cell.type]
     ctx.fillRect(x, y, @cellSize, @cellSize)
