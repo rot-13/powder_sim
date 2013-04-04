@@ -1,6 +1,6 @@
 class window.Cell extends Node
 
-  constructor: (@id, size, @type) ->
+  constructor: (@id, size) ->
     @i = Math.floor(@id / size)
     @j = id % size
 
@@ -24,4 +24,13 @@ class window.Cell extends Node
   performStep: ->
     @type = @futureType
 
-  @initialType: -> null
+  isEmpty: ->
+    @type == null
+
+  pressure: ->
+    _.filter(_.values(@connectedTo), (value) -> value?.type).length
+
+  initialType: -> null
+
+  calculateInitialType: ->
+    @type = @initialType()

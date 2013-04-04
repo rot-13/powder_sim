@@ -7,7 +7,7 @@ class window.Board
 
   build: ->
     for i in [0...(@size * @size)]
-      newCell = new @cellType(i, @size, @cellType.initialType())
+      newCell = new @cellType(i, @size)
 
       top   = i < @size
       left  = i % @size == 0
@@ -19,6 +19,9 @@ class window.Board
         newCell.connect(@cells[i-@size], 'top')
         newCell.connect(@cells[i-@size-1], 'topLeft') unless left
       @cells.push(newCell)
+
+    for cell in @cells
+      cell.calculateInitialType()
 
   step: ->
     for cell in @cells

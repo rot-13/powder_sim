@@ -3,7 +3,7 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(cellType: ElementCell, boardSize: 90, cellSize: 4, desiredFPS: 10)
+  app = new Application(cellType: ElementCell, boardSize: 100, cellSize: 4, desiredFPS: 10)
   app.run()
 
 class window.Application

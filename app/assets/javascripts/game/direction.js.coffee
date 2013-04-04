@@ -1,4 +1,5 @@
 window.Opposites = {
+
   top: 'bottom'
   bottom: 'top'
   left: 'right'

@@ -11,26 +11,39 @@ class window.ElementCell extends window.Cell
 
   _calculateWater: ->
     bottomType = @connectedTo['bottom']?.type
+    leftType = @connectedTo['left']?.type
+    rightType = @connectedTo['right']?.type
 
-    if bottomType == null or bottomType == 'water'
+    if bottomType is null or bottomType is 'water'
       @futureType = null
-    else if bottomType == 'stone'
-      @futureType = 'water'
+    else if bottomType is 'stone'
+      if leftType and rightType
+        @futureType = 'water'
+      else @futureType = null
 
   _calculateEmpty: ->
     topType = @connectedTo['top']?.type
+    leftType = @connectedTo['left']?.type
+    rightType = @connectedTo['right']?.type
+    bottomLeftType = @connectedTo['bottomLeft']?.type
+    bottomRightType = @connectedTo['bottomRight']?.type
 
-    if topType == 'water'
+    if topType is 'water'
       @futureType = 'water'
 
+    if leftType is 'water' and bottomLeftType is 'stone'
+      @futureType = 'water'
 
-  @initialType: ->
+#    if rightType is 'water' and bottomRightType is 'stone'
+#      @futureType = 'water'
+
+
+  initialType: ->
+    pressure = @pressure()
     random = Math.floor(Math.random() * 100)
 
     if random < 25
       @type = 'stone'
-    else if random < 45
-      @type = 'water'
     else
       @type = null
 
