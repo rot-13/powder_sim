@@ -3,14 +3,13 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(cellType: ElementCell, boardSize: 150, cellSize: 3, desiredFPS: 10)
+  app = new Application(boardSize: 250, cellSize: 2, desiredFPS: 60)
   app.run()
 
 class window.Application
 
   constructor: (@options) ->
-    @board = new Board(size: options.boardSize, cellType: options.cellType)
-    @board.build()
+    @board = new Board(size: options.boardSize)
     @renderer = new Renderer(@board, options.cellSize)
 
   run: ->

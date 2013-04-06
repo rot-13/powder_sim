@@ -5,6 +5,7 @@ class window.Renderer
 
   constructor: (@board, @cellSize) ->
     @boardSize = @cellSize * @board.size
+    @bounds = new Rect(0, 0, @board.size, @board.size)
     @build()
 
   build: ->
@@ -17,17 +18,15 @@ class window.Renderer
     @ctx.fillStyle = @emptyColor
     ctx.fillRect(0, 0, @boardSize, @boardSize)
 
-    for cell in @board.cells
-      @renderCell(ctx, cell) if cell.type
+    for entity in @board.entities
+      @renderEntity(ctx, entity)
 
     ctx.restore()
 
-  renderCell: (ctx, cell) ->
-    x = cell.j * @cellSize
-    y = cell.i * @cellSize
-
-    @ctx.fillStyle = CellTypes[cell.type]
-    ctx.fillRect(x, y, @cellSize, @cellSize)
+  renderEntity: (ctx, entity) ->
+    if entity.pos.isInsideRect(@bounds)
+      ctx.fillStyle = entity.color
+      ctx.fillRect(entity.pos.x * @cellSize, entity.pos.y * @cellSize, @cellSize, @cellSize)
 
   ## BUILD
   setContext: (id, size) ->
