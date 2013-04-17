@@ -2,12 +2,25 @@ class window.Board
 
   constructor: (options) ->
     @size = options.size
-    @entities = []
-    @build()
+    @cells = []
 
   build: ->
-    @entities.push(new Entity('white', new Vec(10, 10), new Vec(1, 2)))
+    for i in [0...(@size * @size)]
+      newCell = new Cell(i, @size, Cell.initialType())
+
+      top   = i < @size
+      left  = i % @size == 0
+      right = i % @size == @size - 1
+
+      newCell.connect(@cells[i-1]) unless left
+      unless top
+        newCell.connect(@cells[i-@size+1]) unless right
+        newCell.connect(@cells[i-@size])
+        newCell.connect(@cells[i-@size-1]) unless left
+      @cells.push(newCell)
 
   step: ->
-    for entity in @entities
-      entity.step()
+    for cell in @cells
+      cell.calculateStep()
+    for cell in @cells
+      cell.performStep()
