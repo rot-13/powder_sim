@@ -3,7 +3,7 @@
 #= require_tree .
 
 $(document).ready ->
-  app = new Application(boardSize: 250, cellSize: 2, desiredFPS: 60)
+  app = new Application(boardSize: 150, cellSize: 3, desiredFPS: 120)
   app.run()
 
 class window.Application
@@ -22,7 +22,8 @@ class window.Application
     loopFunction = (=>
       loops = 0
       while (new Date().getTime() > nextGameTick) and (loops < maxFrameSkip)
-        @board.step()
+        for i in [0..1]
+          @board.step()
         nextGameTick += skipTicks
         loops++
 

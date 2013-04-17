@@ -17,17 +17,18 @@ class window.Renderer
     @ctx.fillStyle = @emptyColor
     ctx.fillRect(0, 0, @boardSize, @boardSize)
 
-    for cell in @board.cells
-      console.log(cell.type)
-      @renderCell(ctx, cell) if cell.type
+    for i in [0...@board.size]
+      for j in [0...@board.size]
+        cell = @board.matrix[i][j]
+        @renderCell(ctx, i, j, cell.color()) if cell.isFull()
 
     ctx.restore()
 
-  renderCell: (ctx, cell) ->
-    x = cell.i * @cellSize
-    y = cell.j * @cellSize
+  renderCell: (ctx, i, j, color) ->
+    x = i * @cellSize
+    y = j * @cellSize
 
-    @ctx.fillStyle = cell.color()
+    @ctx.fillStyle = color
     ctx.fillRect(x, y, @cellSize, @cellSize)
 
   ## BUILD

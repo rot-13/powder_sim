@@ -1,25 +1,39 @@
-class window.Cell extends Node
+window.QUANTA = 0.015
+class window.Cell
 
-  constructor: (@id, size, @type) ->
-    @i = Math.floor(@id / size)
-    @j = id % size
-    @connectedTo = []
+  constructor: ->
+    @soil = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @water = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @plant = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @temp = undefined
 
-  connect: (node) ->
-    return false unless node?
-    node.connectedTo.push(@)
-    @connectedTo.push(node)
+  maxSoil: ->
+    0.5
 
-  calculateStep: ->
-    @futureType = @type
-
-
-  @initialType: ->
-    if Math.random() > 0.5 then 'green' else null
-
-  performStep: ->
-    @type = @futureType
+  stableSoil: ->
+    0.49
 
   color: ->
-    return @type
+    @rgbToHex(@soil * 255.0, @plant * 255.0, @water * 255.0)
 
+  isFull: ->
+    if (@soil || @water || @plant) then true else false
+
+  componentToHex: (c) ->
+    hex = parseInt(c.toString()).toString(16)
+    if hex.length == 1 then "0" + hex else hex
+
+  rgbToHex: (r, g, b) ->
+    "#" + @componentToHex(r) + @componentToHex(g) + @componentToHex(b)
+
+
+  step: ->
+    @setAll(@temp)
+
+  reset: ->
+    @temp.setAll(@)
+
+  setAll: (cell) ->
+    @soil = cell.soil
+    @water = cell.water
+    @plant = cell.plant
