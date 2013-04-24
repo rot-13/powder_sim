@@ -5,10 +5,11 @@ class window.Cell
     @soil = 0 #if Math.random() > 0.5 then Math.random() else 0
     @water = 0 #if Math.random() > 0.5 then Math.random() else 0
     @plant = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @plantDirection = Math.floor(Math.random()*3)-1
     @temp = undefined
 
   maxSoil: ->
-    @lerp(0.5, 0.8, @water)
+    Math.max(0, @lerp(0.5, 0.8, @water) - @plant)
 
   stableSoil: ->
     @lerp(0.5, 0.85, @water)
@@ -17,7 +18,7 @@ class window.Cell
     @lerp(10, 2, @water)
 
   maxWater: ->
-    @lerp(0.5, 0.05, @soil)
+    Math.max(0, @lerp(0.5, 0.05, @soil) - @plant)
 
   stableWater: ->
     @lerp(0.05, 0.45, @soil)
@@ -25,8 +26,25 @@ class window.Cell
   waterFallRate: ->
     @lerp(10, 1, @soil)
 
+  maxPlant: ->
+    0.6
+
+  stablePlant: ->
+    0.4
+
+  minPlant: ->
+    0.25
+
+  requiredWater: ->
+    0.05
+
+  getDirection: ->
+    if (Math.random() > 0.99)
+      @plantDirection = Math.floor(Math.random()*3)-1
+    @plantDirection
+
   color: ->
-    @rgbToHex(@soil * 255.0, @water * 255.0, @water * 255.0)
+    @rgbToHex(Math.min(255, @lerp(64, 255, @soil)), Math.min(255, @lerp(64, 255, @plant)), Math.min(255, @lerp(64, 255, @water)))
 
   isFull: ->
     if (@soil || @water || @plant) then true else false

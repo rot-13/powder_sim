@@ -28,12 +28,13 @@ class window.Board
   calculateStep: (i, j) ->
     @calculateSoil(i, j)
     @calculateWater(i, j)
+    @calculatePlant(i, j)
 
   calculateSoil: (i, j) ->
     source = @matrix[i][j]
     target = source.temp
     ourSoil = source.soil
-    if ourSoil > QUANTA
+    if ourSoil > 0.0
       below = @matrix[i][j+1]
       if below && below.soil < below.maxSoil()
         toTransfer = Math.min(QUANTA*target.soilFallRate(), target.soil)
@@ -53,7 +54,7 @@ class window.Board
     source = @matrix[i][j]
     target = source.temp
     ourWater = source.water
-    if ourWater > QUANTA
+    if ourWater > 0.0
       below = @matrix[i][j+1]
       if below && below.water < below.maxWater()
         toTransfer = Math.min(QUANTA*target.waterFallRate(), target.water)
@@ -69,4 +70,30 @@ class window.Board
           toTransfer = Math.min(QUANTA*30, target.water)
           target.water -= toTransfer
           spillCell.temp.water += toTransfer
+
+  calculatePlant: (i, j) ->
+    source = @matrix[i][j]
+    target = source.temp
+    if target.plant < target.maxPlant()
+      # spawn
+      if 1.2 > target.water/target.soil > 0.8
+        target.plant += QUANTA*2
+        target.water -= QUANTA
+        target.soil -= QUANTA
+
+      # regenerate
+      if target.plant > target.minPlant() && target.water > target.requiredWater()
+        target.plant += QUANTA
+        target.water -= QUANTA
+
+      # reproduce
+      if target.plant > target.stablePlant()
+        possiblePlant = @matrix[i+target.getDirection()]?[j-1]
+        if possiblePlant
+          possiblePlant.temp.plant += QUANTA
+          target.plant -= QUANTA
+          if (Math.random() > 0.99)
+            possiblePlant.temp.plantDirection = target.plantDirection
+
+
 
