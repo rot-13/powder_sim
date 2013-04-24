@@ -8,13 +8,25 @@ class window.Cell
     @temp = undefined
 
   maxSoil: ->
-    0.5
+    @lerp(0.5, 0.8, @water)
 
   stableSoil: ->
-    0.49
+    @lerp(0.5, 0.85, @water)
+
+  soilFallRate: ->
+    @lerp(10, 2, @water)
+
+  maxWater: ->
+    @lerp(0.5, 0.05, @soil)
+
+  stableWater: ->
+    @lerp(0.05, 0.45, @soil)
+
+  waterFallRate: ->
+    @lerp(10, 1, @soil)
 
   color: ->
-    @rgbToHex(@soil * 255.0, @plant * 255.0, @water * 255.0)
+    @rgbToHex(@soil * 255.0, @water * 255.0, @water * 255.0)
 
   isFull: ->
     if (@soil || @water || @plant) then true else false
@@ -37,3 +49,6 @@ class window.Cell
     @soil = cell.soil
     @water = cell.water
     @plant = cell.plant
+
+  lerp: (min, max, percent) ->
+    min + (max - min) * percent
