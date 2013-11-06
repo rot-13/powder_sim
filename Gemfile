@@ -12,7 +12,3 @@ group :assets do
   gem 'uglifier'
   gem 'compass'
 end
-
-group :development do
-  gem 'debugger'
-end
