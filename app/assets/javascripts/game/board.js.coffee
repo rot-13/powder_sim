@@ -96,5 +96,7 @@ class window.Board
           if (Math.random() > 0.99)
             possiblePlant.temp.plantDirection = target.plantDirection
 
-
-
+$(document).ready ->
+  $('#soil').change( -> window.emitterType = 'soil')
+  $('#water').change( -> window.emitterType = 'water')
+  $('#range').change( -> window.emitterPosition = $('#range').val())
