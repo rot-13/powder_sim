@@ -1,4 +1,3 @@
-a_game_of_life
-==============
+__Powder simulation__
 
-A Game of Life Experiment
+Launch the rails server and go to root path for the demo.
