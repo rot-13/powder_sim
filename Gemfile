@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'haml'
 gem 'quiet_assets'
+gem 'rails_12factor', group: :production
 
 group :assets do
   gem 'underscore-rails'
