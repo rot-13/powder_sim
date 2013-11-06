@@ -1,3 +1,8 @@
+$(document).ready ->
+  $('#soil').change( -> window.emitterType = 'soil')
+  $('#water').change( -> window.emitterType = 'water')
+  $('#range').change( -> window.emitterPosition = $('#range').val())
+
 class window.Board
 
   constructor: (options) ->
@@ -24,32 +29,32 @@ class window.Board
       for j in [0...@size]
         @matrix[i][j].step()
 
-    @matrix[Math.ceil(@size*window.emitterPosition)][3]["_#{window.emitterType}"] = 1 if window.emitterType
+    @matrix[Math.ceil(@size*window.emitterPosition)][3][window.emitterType] = 1 if window.emitterType
 
   calculateStep: (i, j) ->
-    @calculate('soil', i, j)
+    @calculateSoil(i, j)
     @calculateWater(i, j)
     @calculatePlant(i, j)
 
-  calculate: (type, i, j) ->
+  calculateSoil: (i, j) ->
     source = @matrix[i][j]
     target = source.temp
-    ours = source.get(type)
-    if ours > 0.0
+    ourSoil = source.soil
+    if ourSoil > 0.0
       below = @matrix[i][j+1]
-      if below && below.get(type) < below.max(type)
-        toTransfer = Math.min(QUANTA*target.fallRate(type), target.get(type))
-        target.transfer(type, -toTransfer)
-        @matrix[i][j+1].temp.transfer(type, toTransfer)
-      else if source.get(type) > source.stable(type)
+      if below && below.soil < below.maxSoil()
+        toTransfer = Math.min(QUANTA*target.soilFallRate(), target.soil)
+        target.soil -= toTransfer
+        @matrix[i][j+1].temp.soil += toTransfer
+      else if source.soil > source.stableSoil()
         left = @matrix[i-1]?[j]
         right = @matrix[i+1]?[j]
         spillCell = if Math.random() > 0.5 then left else right
-        spillCell = left if !right || right.get(type) >= right.max(type)
-        spillCell = right if !left || left.get(type) >= left.max(type)
-        if spillCell && spillCell.get(type) < spillCell.max(type)
-          target.transfer(type, -QUANTA)
-          spillCell.temp.transfer(type, QUANTA)
+        spillCell = left if !right || right.soil >= right.maxSoil()
+        spillCell = right if !left || left.soil >= left.maxSoil()
+        if (spillCell && spillCell.soil < spillCell.maxSoil())
+          target.soil -= QUANTA
+          spillCell.temp.soil += QUANTA
 
   calculateWater: (i, j) ->
     source = @matrix[i][j]
@@ -96,7 +101,4 @@ class window.Board
           if (Math.random() > 0.99)
             possiblePlant.temp.plantDirection = target.plantDirection
 
-$(document).ready ->
-  $('#soil').change( -> window.emitterType = 'soil')
-  $('#water').change( -> window.emitterType = 'water')
-  $('#range').change( -> window.emitterPosition = $('#range').val())
+

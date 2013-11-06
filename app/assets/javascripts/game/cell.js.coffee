@@ -2,45 +2,29 @@ window.QUANTA = 0.015
 class window.Cell
 
   constructor: ->
-    @_soil = 0
-    @_water = 0 #if Math.random() > 0.5 then Math.random() else 0
-    @_plant = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @soil = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @water = 0 #if Math.random() > 0.5 then Math.random() else 0
+    @plant = 0 #if Math.random() > 0.5 then Math.random() else 0
     @plantDirection = Math.floor(Math.random()*3)-1
     @temp = undefined
 
-  # MATERIALS
+  maxSoil: ->
+    Math.max(0, @lerp(0.5, 0.8, @water) - @plant)
 
-  soil: ->
-    val:      -> @_soil
-    max:      -> Math.max(0, @lerp(0.5, 0.8, @_water) - @_plant)
-    stable:   -> @lerp(0.5, 0.85, @_water)
-    fallRate: -> @lerp(10, 2, @_water)
+  stableSoil: ->
+    @lerp(0.5, 0.85, @water)
 
-  # GETTERS
-
-  get: (type) ->
-    @[type]().val.apply(@)
-
-  max: (type) ->
-    @[type]().max.apply(@)
-
-  stable: (type) ->
-    @[type]().stable.apply(@)
-
-  fallRate: (type) ->
-    @[type]().fallRate.apply(@)
-
-  transfer: (type, quantity) ->
-    @["_#{type}"] += quantity
+  soilFallRate: ->
+    @lerp(10, 2, @water)
 
   maxWater: ->
-    Math.max(0, @lerp(0.5, 0.05, @_soil) - @_plant)
+    Math.max(0, @lerp(0.5, 0.05, @soil) - @plant)
 
   stableWater: ->
-    @lerp(0.05, 0.45, @_soil)
+    @lerp(0.05, 0.45, @soil)
 
   waterFallRate: ->
-    @lerp(10, 1, @_soil)
+    @lerp(10, 1, @soil)
 
   maxPlant: ->
     0.6
@@ -60,10 +44,10 @@ class window.Cell
     @plantDirection
 
   color: ->
-    @rgbToHex(Math.min(255, @lerp(64, 255, @_soil)), Math.min(255, @lerp(64, 255, @_plant)), Math.min(255, @lerp(64, 255, @_water)))
+    @rgbToHex(Math.min(255, @lerp(64, 255, @soil)), Math.min(255, @lerp(64, 255, @plant)), Math.min(255, @lerp(64, 255, @water)))
 
   isFull: ->
-    if (@_soil || @_water || @_plant) then true else false
+    if (@soil || @water || @plant) then true else false
 
   componentToHex: (c) ->
     hex = parseInt(c.toString()).toString(16)
@@ -72,6 +56,7 @@ class window.Cell
   rgbToHex: (r, g, b) ->
     "#" + @componentToHex(r) + @componentToHex(g) + @componentToHex(b)
 
+
   step: ->
     @setAll(@temp)
 
@@ -79,9 +64,9 @@ class window.Cell
     @temp.setAll(@)
 
   setAll: (cell) ->
-    @_soil = cell._soil
-    @_water = cell._water
-    @_plant = cell._plant
+    @soil = cell.soil
+    @water = cell.water
+    @plant = cell.plant
 
   lerp: (min, max, percent) ->
     min + (max - min) * percent
