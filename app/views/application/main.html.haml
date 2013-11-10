@@ -1,4 +1,7 @@
 .actions
-  %input#range{:type => "range", :min=> "0.05", :max => "0.95", :step => 0.05}
-  %input#soil{:type => :radio, :name => :type, :value => :no}= 'soil'
-  %input#water{:type => :radio, :name => :type, :value => :no}= 'water'
+  %input#range{:type => "range", :min=> "0.05", :max => "0.95", :step => 0.05, :style => 'margin-left: 20px; width: 500px'}
+  &nbsp &nbsp &nbsp
+  %input#soil{:type => :radio, :name => :type, :checked => :false}= 'soil'
+  %input#water{:type => :radio, :name => :type, :checked => :false}= 'water'
+  &nbsp &nbsp &nbsp
+  %input#nothing{:type => :radio, :name => :type, :checked => :true}= 'nothing'

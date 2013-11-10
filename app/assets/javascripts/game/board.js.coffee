@@ -1,6 +1,7 @@
 $(document).ready ->
   $('#soil').change( -> window.emitterType = 'soil')
   $('#water').change( -> window.emitterType = 'water')
+  $('#nothing').change( -> window.emitterType = null)
   $('#range').change( -> window.emitterPosition = $('#range').val())
 
 class window.Board
